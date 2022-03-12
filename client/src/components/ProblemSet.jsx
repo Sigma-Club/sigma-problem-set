@@ -7,7 +7,7 @@ const ProblemSet = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000")
+      .get("https://sigma-problem-set.herokuapp.com")
       .then((res) => {
         let list = res.data.map((element) => {
           return {
