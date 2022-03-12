@@ -16,3 +16,12 @@ body {
     display: flex;
     column-gap: 0.5rem;
 }
+
+.fact_card {
+    display: block;
+    /* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-width: 50rem;
+}
