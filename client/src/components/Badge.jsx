@@ -7,7 +7,7 @@ const Badge = (props) => {
   });
   return (
     <span
-      className={`px-2 inline-flex text-sm leading-5 font-semibold rounded-full`}
+      className={`px-2 text-sm leading-5 font-semibold rounded-full hidden md:inline-flex`}
       style={{
         fontWeight: 800,
         backgroundColor: color,

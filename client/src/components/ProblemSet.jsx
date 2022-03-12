@@ -57,27 +57,27 @@ const ProblemSet = () => {
           </h3>
         </div>
       ) : (
-        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-3/5 font-defonts">
+        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-5/6 md:w-3/5 font-defonts">
           <div className="py-2 align-middle inline-block min-w-full md:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
+              <table className="min-w-full divide-y divide-gray-200 scale-0.5 sm:scale-1">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Sl.No
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-sm sm:text-xs text-right md:text-left  font-medium text-gray-500 uppercase tracking-wider whitespace-normal"
                     >
                       Problems
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-center sm:text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:block"
                     >
                       Tags
                     </th>
@@ -88,16 +88,16 @@ const ProblemSet = () => {
                     <tr key={problem.key} className="hover:bg-gray-200">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="text-md font-medium text-gray-900">
+                          <div className="text-sm md:text-md  font-medium text-gray-900">
                             {index + 1}
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-left">
-                        <div className="text-md  text-left font-bold">
+                        <div className="text-md text-right md:text-left font-bold">
                           <a
                             href={problem.problem_link}
-                            className="text-md text-indigo-700 hover:underline"
+                            className="text-sm md:text-md text-indigo-700 hover:underline"
                             target="_blank"
                           >
                             {" "}
@@ -105,7 +105,7 @@ const ProblemSet = () => {
                           </a>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-left badge_container">
+                      <td className="px-6 py-4 whitespace-nowrap  badge_container hidden md:flex">
                         {problem.tags.map((e, index) => {
                           return <Badge tag={e} key={index} />;
                         })}
@@ -114,7 +114,7 @@ const ProblemSet = () => {
                   ))}
                 </tbody>
               </table>
-              <h3 className="text-center text-xs font-medium py-3 bg-gray-50 text-gray-500 uppercase tracking-wider">
+              <h3 className="text-center text-xs font-medium py-5 bg-gray-50 text-gray-500 uppercase tracking-wider">
                 ©️Sigma Team NITA
               </h3>
             </div>

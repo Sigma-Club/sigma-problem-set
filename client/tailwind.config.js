@@ -9,7 +9,7 @@ module.exports = {
                 "head": "#36454F"
             },
             fontFamily: {
-                defont: ['Righteous', "cursive"],
+                defont: ['Secular One', "sans-serif"],
                 defonts: ["Space Grotesk", "sans-serif"],
             },
         },
