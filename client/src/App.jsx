@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App ">
       <Header />
-      <div className="container">
+      <div className="table-container">
         <div className="font-defonts text-5xl text-head font-bold text-left">
           🗿 Sigma Problem Set
         </div>

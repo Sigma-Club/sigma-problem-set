@@ -9,12 +9,9 @@ const ProblemSet = () => {
 
   const fetchFact = () => {
     let index = Math.floor(Math.random() * facts.facts.length);
-    console.log(index);
-    console.log(facts.facts[index]);
     return `"${facts.facts[index].content}"`;
   };
   useEffect(() => {
-    console.log(process.env);
     axios
       .get(process.env.REACT_APP_BACKEND_URL)
       .then((res) => {
