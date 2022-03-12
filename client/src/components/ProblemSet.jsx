@@ -14,8 +14,9 @@ const ProblemSet = () => {
     return `"${facts.facts[index].content}"`;
   };
   useEffect(() => {
+    console.log(process.env);
     axios
-      .get("https://sigma-problem-set.herokuapp.com")
+      .get(process.env.REACT_APP_BACKEND_URL)
       .then((res) => {
         let list = res.data.map((element) => {
           return {
