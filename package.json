@@ -1,0 +1,27 @@
+{
+    "name": "sigma-problem-set",
+    "version": "1.0.0",
+    "description": "Competitive problems for DSA noobs",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/shubham-thorat/sigma-problem-set.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/shubham-thorat/sigma-problem-set/issues"
+    },
+    "homepage": "https://github.com/shubham-thorat/sigma-problem-set#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "mongoose": "^6.2.5"
+    }
+}
