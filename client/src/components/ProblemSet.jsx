@@ -57,10 +57,10 @@ const ProblemSet = () => {
           </h3>
         </div>
       ) : (
-        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-5/6  md:w-4/5 font-defonts">
+        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-11/12 md:w-3/5 font-defonts">
           <div className="py-2 align-middle inline-block min-w-full md:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200 scale-0.5 sm:scale-1">
+              <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
@@ -71,7 +71,7 @@ const ProblemSet = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-sm sm:text-xs text-right md:text-left  font-medium text-gray-500 uppercase tracking-wider whitespace-normal"
+                      className="px-6 py-3 text-sm sm:text-xs text-left  font-medium text-gray-500 uppercase tracking-wider whitespace-normal"
                     >
                       Problems
                     </th>
@@ -80,6 +80,12 @@ const ProblemSet = () => {
                       className="px-6 py-3 text-center sm:text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:block"
                     >
                       Tags
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      ✔️
                     </th>
                   </tr>
                 </thead>
@@ -94,7 +100,7 @@ const ProblemSet = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-left">
-                        <div className="text-md text-right md:text-left font-bold">
+                        <div className="text-md text-left font-bold">
                           <a
                             href={problem.problem_link}
                             className="text-sm md:text-md text-indigo-700 hover:underline"
@@ -109,6 +115,17 @@ const ProblemSet = () => {
                         {problem.tags.map((e, index) => {
                           return <Badge tag={e} key={index} />;
                         })}
+                      </td>
+                      <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center justify-start">
+                          <input
+                            id="checkbox-1"
+                            aria-describedby="checkbox-1"
+                            type="checkbox"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}
