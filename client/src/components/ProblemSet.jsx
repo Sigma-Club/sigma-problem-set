@@ -57,7 +57,7 @@ const ProblemSet = () => {
           </h3>
         </div>
       ) : (
-        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-5/6 md:w-3/5 font-defonts">
+        <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-5/6  md:w-4/5 font-defonts">
           <div className="py-2 align-middle inline-block min-w-full md:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200 scale-0.5 sm:scale-1">
