@@ -111,18 +111,18 @@ const ProblemSet = ({ solved, onDataChange }) => {
                 placeholder={`/ Search problems by ${placeholderString}`}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <div class="flex items-center ml-2 mb-3 bg-gray-300 py-2 px-3 rounded-md">
+              <div class="flex items-center ml-2 mb-3 bg-gray-300 py-2.5 sm:py-2 px-3 rounded-md">
                 <input
                   onChange={() => handleTagsClick()}
                   id="checkbox-1"
                   aria-describedby="checkbox-1"
                   type="checkbox"
-                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  class="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   checked={tagsChecked}
                 />
                 <label
                   for="checkbox-1"
-                  class="ml-3 text-sm font-medium text-gray-600 "
+                  class="ml-3 text-xs sm:text-sm font-medium text-gray-600 truncate"
                 >
                   By tags
                 </label>
