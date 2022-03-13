@@ -3,7 +3,7 @@ import Badge from "./Badge.jsx";
 import axios from "axios";
 import facts from "./facts.json";
 
-const ProblemSet = () => {
+const ProblemSet = ({ solved }) => {
   const [problems, setproblems] = useState([]);
   const [loading, setloading] = useState(true);
 
