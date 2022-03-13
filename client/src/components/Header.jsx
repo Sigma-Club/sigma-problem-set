@@ -22,7 +22,9 @@ export default function Header() {
               />
             </span>
             <p className="ml-3 font-medium font-defonts text-sm text-white truncate">
-              <span className="md:hidden">Contribute to our Github repository! </span>
+              <span className="md:hidden">
+                Contribute to our Github repository!{" "}
+              </span>
               <span className="hidden md:inline">
                 Feel free to contribute to our Github repository!🤝
               </span>
@@ -30,7 +32,7 @@ export default function Header() {
           </div>
           <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
             <a
-              href="https://github.com/shubham-thorat/sigma-problem-set.git"
+              href="https://github.com/Sigma-Club/sigma-problem-set.git"
               target="_blank"
               className="flex items-center justify-center px-4 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 font-defonts bg-white hover:bg-indigo-50"
             >
