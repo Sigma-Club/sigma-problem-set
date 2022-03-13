@@ -24,3 +24,9 @@ body {
     overflow: hidden;
     max-width: 50rem;
 }
+
+input[type="text"]::placeholder { 
+                  
+                  /* Firefox, Chrome, Opera */
+                  text-align: center;
+}
