@@ -3,7 +3,7 @@ import Badge from "./Badge.jsx";
 import axios from "axios";
 import facts from "./facts.json";
 
-const ProblemSet = ({ solved }) => {
+const ProblemSet = ({ solved, onDataChange }) => {
   const [problems, setproblems] = useState([]);
   const [loading, setloading] = useState(true);
 
@@ -30,6 +30,17 @@ const ProblemSet = ({ solved }) => {
         console.log(err);
       });
   }, []);
+
+  const isChecked = (key) => {
+    return solved[key] === true;
+  };
+
+  const make_false = (key) => {
+    onDataChange(key, false);
+  };
+  const make_true = (key) => {
+    onDataChange(key, true);
+  };
 
   return (
     <>
@@ -118,13 +129,25 @@ const ProblemSet = ({ solved }) => {
                       </td>
                       <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center justify-start">
-                          <input
-                            id="checkbox-1"
-                            aria-describedby="checkbox-1"
-                            type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            
-                          />
+                          {isChecked(problem.key) ? (
+                            <input
+                              onClick={() => make_false(problem.key)}
+                              id="checkbox-1"
+                              aria-describedby="checkbox-1"
+                              type="checkbox"
+                              class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              checked={true}
+                            />
+                          ) : (
+                            <input
+                              onClick={() => make_true(problem.key)}
+                              id="checkbox-1"
+                              aria-describedby="checkbox-1"
+                              type="checkbox"
+                              class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                              checked={false}
+                            />
+                          )}
                         </div>
                       </td>
                     </tr>
