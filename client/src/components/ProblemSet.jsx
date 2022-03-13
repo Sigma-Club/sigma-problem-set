@@ -7,16 +7,23 @@ const ProblemSet = ({ solved, onDataChange }) => {
   const [problems, setproblems] = useState([]);
   const [loading, setloading] = useState(true);
   const [keyword, setKeyword] = useState("");
-
+  const [tags, settags] = useState([]);
+  const [tagsChecked, settagsChecked] = useState(false);
   const fetchFact = () => {
     let index = Math.floor(Math.random() * facts.facts.length);
     return `"${facts.facts[index].content}"`;
   };
+
   useEffect(() => {
     axios
       .get(process.env.REACT_APP_BACKEND_URL)
       .then((res) => {
+        let taglist = [];
         let list = res.data.map((element) => {
+          for (let i = 0; i < element.tags.length; i++) {
+            taglist.push(element.tags[i]);
+          }
+
           return {
             key: element._id,
             problem_name: element.problem_name,
@@ -24,6 +31,9 @@ const ProblemSet = ({ solved, onDataChange }) => {
             tags: element.tags,
           };
         });
+
+        let uniquetags = [...new Set(taglist)];
+        settags(uniquetags);
         setproblems(list);
         setloading(false);
       })
@@ -42,9 +52,21 @@ const ProblemSet = ({ solved, onDataChange }) => {
   const make_true = (key) => {
     onDataChange(key, true);
   };
-  const filteredProblems = problems.filter((problem) =>
-    problem.problem_name.toLowerCase().includes(keyword.toLowerCase())
-  );
+
+  const filteredProblems = problems.filter((problem) => {
+    if (tagsChecked) {
+      for (let i = 0; i < problem.tags.length; i++) {
+        if (
+          problem.tags[i].toLowerCase().indexOf(keyword.toLowerCase()) != -1
+        ) {
+          return true;
+        }
+      }
+      return false;
+    } else {
+      return problem.problem_name.toLowerCase().includes(keyword.toLowerCase());
+    }
+  });
 
   return (
     <>
@@ -82,6 +104,22 @@ const ProblemSet = ({ solved, onDataChange }) => {
                 placeholder="/ Search for a problem"
                 onChange={(e) => setKeyword(e.target.value)}
               />
+              <div class="flex items-center mb-4">
+                <input
+                  onChange={() => settagsChecked(!tagsChecked)}
+                  id="checkbox-1"
+                  aria-describedby="checkbox-1"
+                  type="checkbox"
+                  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  checked={tagsChecked}
+                />
+                <label
+                  for="checkbox-1"
+                  class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  By tags
+                </label>
+              </div>
             </div>
             <div className="shadow overflow-hidden border-b border-gray-200 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
