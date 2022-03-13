@@ -9,6 +9,7 @@ const ProblemSet = ({ solved, onDataChange }) => {
   const [keyword, setKeyword] = useState("");
   const [tags, settags] = useState([]);
   const [tagsChecked, settagsChecked] = useState(false);
+  const [placeholderString, setplaceholderString] = useState("name");
   const fetchFact = () => {
     let index = Math.floor(Math.random() * facts.facts.length);
     return `"${facts.facts[index].content}"`;
@@ -52,6 +53,12 @@ const ProblemSet = ({ solved, onDataChange }) => {
   const make_true = (key) => {
     onDataChange(key, true);
   };
+
+  const handleTagsClick = () => {
+    if(tagsChecked) setplaceholderString("name");
+    else setplaceholderString("tags");
+    settagsChecked(!tagsChecked);
+  }
 
   const filteredProblems = problems.filter((problem) => {
     if (tagsChecked) {
@@ -101,12 +108,12 @@ const ProblemSet = ({ solved, onDataChange }) => {
                 type="text"
                 id="search-box"
                 className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 mb-3 text-center"
-                placeholder="/ Search for a problem"
+                placeholder={`/ Search problems by ${placeholderString}`}
                 onChange={(e) => setKeyword(e.target.value)}
               />
-              <div class="flex items-center mb-4">
+              <div class="flex items-center ml-2 mb-3 bg-gray-300 py-2 px-3 rounded-md">
                 <input
-                  onChange={() => settagsChecked(!tagsChecked)}
+                  onChange={() => handleTagsClick()}
                   id="checkbox-1"
                   aria-describedby="checkbox-1"
                   type="checkbox"
@@ -115,7 +122,7 @@ const ProblemSet = ({ solved, onDataChange }) => {
                 />
                 <label
                   for="checkbox-1"
-                  class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  class="ml-3 text-sm font-medium text-gray-600 "
                 >
                   By tags
                 </label>
