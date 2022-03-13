@@ -6,6 +6,7 @@ import facts from "./facts.json";
 const ProblemSet = ({ solved, onDataChange }) => {
   const [problems, setproblems] = useState([]);
   const [loading, setloading] = useState(true);
+  const [keyword, setKeyword] = useState("");
 
   const fetchFact = () => {
     let index = Math.floor(Math.random() * facts.facts.length);
@@ -41,6 +42,9 @@ const ProblemSet = ({ solved, onDataChange }) => {
   const make_true = (key) => {
     onDataChange(key, true);
   };
+  const filteredProblems = problems.filter((problem) =>
+    problem.problem_name.toLowerCase().includes(keyword.toLowerCase())
+  );
 
   return (
     <>
@@ -70,6 +74,15 @@ const ProblemSet = ({ solved, onDataChange }) => {
       ) : (
         <div className="-my-2 overflow-x-auto md:-mx-6 lg:-mx-8 w-11/12 md:w-3/5 font-defonts">
           <div className="py-2 align-middle inline-block min-w-full md:px-6 lg:px-8">
+            <div className="flex items-center justify-center">
+              <input
+                type="text"
+                id="search-box"
+                className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 mb-3 text-center"
+                placeholder="/ Search for a problem"
+                onChange={(e) => setKeyword(e.target.value)}
+              />
+            </div>
             <div className="shadow overflow-hidden border-b border-gray-200 md:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -101,7 +114,7 @@ const ProblemSet = ({ solved, onDataChange }) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {problems?.map((problem, index) => (
+                  {filteredProblems?.map((problem, index) => (
                     <tr key={problem.key} className="hover:bg-gray-200">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
