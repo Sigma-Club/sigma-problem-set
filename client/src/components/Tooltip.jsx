@@ -21,7 +21,7 @@ const ToolTip = () => {
 
         <div class="absolute bottom-0 flex flex-col items-center hidden mb-6 group-hover:flex">
           <span class="relative z-10 p-3 text-xs leading-none text-black whitespace-no-wrap bg-white font-defonts shadow-lg">
-            Use <span className="font-bold italic">Ctrl+F</span> to find problems
+            Use <span className="font-bold italic">Dark Reader</span> extension for dark mode experience!
           </span>
           <div class="w-3 h-3 rotate-45"></div>
         </div>
