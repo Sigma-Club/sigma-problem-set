@@ -6,7 +6,7 @@ module.exports = {
                 sm: "640px",
                 // => @media (min-width: 640px) { ... }
 
-                md: "1250px",
+                md: "1500px",
                 // => @media (min-width: 768px) { ... }
 
                 lg: "1250px",
@@ -20,10 +20,10 @@ module.exports = {
             },
             colors: {
                 "primary-bg": "#f5f5f5",
-                head: "#36454F",
+                head: "#667680",
             },
             fontFamily: {
-                defont: ["Secular One", "sans-serif"],
+                defont: ["star_jedi_outlineregular"],
                 defonts: ["Space Grotesk", "sans-serif"],
             },
         },
