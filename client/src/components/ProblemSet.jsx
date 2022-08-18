@@ -64,7 +64,7 @@ const ProblemSet = ({ solved, onDataChange }) => {
     if (tagsChecked) {
       for (let i = 0; i < problem.tags.length; i++) {
         if (
-          problem.tags[i].toLowerCase().indexOf(keyword.toLowerCase()) != -1
+          problem.tags[i].toLowerCase().indexOf(keyword.toLowerCase()) !== -1
         ) {
           return true;
         }
