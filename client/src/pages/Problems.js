@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 
 const Problems = () => {
   const { user } = UserAuth();
-  const [solved, setsolved] = useState(
-    JSON.parse(localStorage.getItem("SOLVED_PROBLEM") || "{}")
-  );
+  const [solved, setsolved] = useState([]);
 
   const onDataChange = (key, value) => {
     setsolved({
@@ -17,10 +15,6 @@ const Problems = () => {
       [key]: value,
     });
   };
-
-  useEffect(() => {
-    localStorage.setItem("SOLVED_PROBLEM", JSON.stringify(solved));
-  }, [solved]);
 
   return (
     <div>
@@ -48,7 +42,8 @@ const Problems = () => {
           )}
           blem Set
         </div>
-        <ProblemSet solved={solved} onDataChange={onDataChange} />
+        {/* <button onClick={createProgress}>Create Progress</button> */}
+        <ProblemSet solved={solved} onDataChange={onDataChange} setsolved = {setsolved} />
       </div>
     </div>
   );

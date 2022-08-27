@@ -1,0 +1,2 @@
+4) middleware or firebase problems maybe
+5) enabling local storage and building syncing feature

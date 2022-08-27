@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import Badge from "./Badge.jsx";
 import axios from "axios";
 import facts from "./facts.json";
+import { UserAuth } from "../context/AuthContext";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { useRef } from "react";
+import ReactLoading from "react-loading";
 
-const ProblemSet = ({ solved, onDataChange }) => {
+const ProblemSet = ({ solved, onDataChange, setsolved }) => {
+  const { user } = UserAuth();
+  const componentMounted = useRef(true);
   const [problems, setproblems] = useState([]);
   const [loading, setloading] = useState(true);
+  const [smloading, setSmLoading] = useState();
   const [keyword, setKeyword] = useState("");
   const [tags, settags] = useState([]);
   const [tagsChecked, settagsChecked] = useState(false);
@@ -15,7 +23,22 @@ const ProblemSet = ({ solved, onDataChange }) => {
     return `"${facts.facts[index].content}"`;
   };
 
+  function getSolvedProblems() {
+    const docRef = doc(db, "users-progress", user.uid);
+    getDoc(docRef).then((doc) => {
+      // console.log(doc.data());
+      setsolved(doc.data().solved_problems);
+    });
+    setSmLoading(false)
+  }
+
+  useEffect(async () => {
+    //fetch user's solved problems from firebase
+    getSolvedProblems();
+  }, [user]);
+
   useEffect(() => {
+    //fetch problems from db server
     axios
       .get(process.env.REACT_APP_BACKEND_URL)
       .then((res) => {
@@ -47,18 +70,40 @@ const ProblemSet = ({ solved, onDataChange }) => {
     return solved[key] === true;
   };
 
-  const make_false = (key) => {
-    onDataChange(key, false);
+  const make_false = async (key) => {
+    const docRef = doc(db, "users-progress", user.uid);
+    const solved_problems = {...solved}
+    solved_problems[key] = false
+    try {
+      await updateDoc(docRef, {
+        solved_problems
+      });
+      onDataChange(key, false);
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const make_true = (key) => {
-    onDataChange(key, true);
+  const make_true = async (key) => {
+    setSmLoading(true)
+    const docRef = doc(db, "users-progress", user.uid);
+    const solved_problems = {...solved}
+    solved_problems[key] = true
+    try {
+      await updateDoc(docRef, {
+        solved_problems
+      });
+      onDataChange(key, true);
+    } catch (error) {
+      console.log(error);
+    }
+    setSmLoading(false)
   };
 
   const handleTagsClick = () => {
-    if(tagsChecked) setplaceholderString("name");
+    if (tagsChecked) setplaceholderString("name");
     else setplaceholderString("tags");
     settagsChecked(!tagsChecked);
-  }
+  };
 
   const filteredProblems = problems.filter((problem) => {
     if (tagsChecked) {
@@ -150,12 +195,14 @@ const ProblemSet = ({ solved, onDataChange }) => {
                     >
                       Tags
                     </th>
-                    <th
-                      scope="col"
-                      className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      ✔️
-                    </th>
+                    {user && (
+                      <th
+                        scope="col"
+                        className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        ✔️
+                      </th>
+                    )}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -185,29 +232,31 @@ const ProblemSet = ({ solved, onDataChange }) => {
                           return <Badge tag={e} key={index} />;
                         })}
                       </td>
-                      <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center justify-start">
-                          {isChecked(problem.key) ? (
-                            <input
-                              onClick={() => make_false(problem.key)}
-                              id="checkbox-1"
-                              aria-describedby="checkbox-1"
-                              type="checkbox"
-                              class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              checked={true}
-                            />
-                          ) : (
-                            <input
-                              onClick={() => make_true(problem.key)}
-                              id="checkbox-1"
-                              aria-describedby="checkbox-1"
-                              type="checkbox"
-                              class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              checked={false}
-                            />
-                          )}
-                        </div>
-                      </td>
+                      {user && (
+                        <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center justify-start">
+                            {smloading ? (<ReactLoading type="cylon" color="#303F9F" height={'75%'} width={'75%'}/>) : isChecked(problem.key) ? (
+                              <input
+                                onClick={() => make_false(problem.key)}
+                                id="checkbox-1"
+                                aria-describedby="checkbox-1"
+                                type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                checked={true}
+                              />
+                            ) : (
+                              <input
+                                onClick={() => make_true(problem.key)}
+                                id="checkbox-1"
+                                aria-describedby="checkbox-1"
+                                type="checkbox"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                checked={false}
+                              />
+                            )}
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   ))}
                 </tbody>
