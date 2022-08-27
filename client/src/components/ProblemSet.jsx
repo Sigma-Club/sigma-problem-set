@@ -71,6 +71,7 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
   };
 
   const make_false = async (key) => {
+    setSmLoading(true)
     const docRef = doc(db, "users-progress", user.uid);
     const solved_problems = {...solved}
     solved_problems[key] = false
@@ -82,6 +83,7 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
     } catch (error) {
       console.log(error);
     }
+    setSmLoading(false)
   };
   const make_true = async (key) => {
     setSmLoading(true)
