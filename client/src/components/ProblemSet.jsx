@@ -24,12 +24,21 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
   };
 
   function getSolvedProblems() {
+    setSmLoading(true);
     const docRef = doc(db, "users-progress", user.uid);
     getDoc(docRef).then((doc) => {
-      // console.log(doc.data());
-      setsolved(doc.data().solved_problems);
-    });
-    setSmLoading(false)
+        // console.log(doc.data());
+        if(doc.data() == undefined || doc.data == null) {
+          setDoc(docRef, {
+            "user_id": user.uid,
+            "solved_problems": [],
+            "timestamp": Date.now()
+          })
+        }
+        setsolved(doc.data().solved_problems);
+      });
+
+    setSmLoading(false);
   }
 
   useEffect(async () => {
@@ -71,34 +80,34 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
   };
 
   const make_false = async (key) => {
-    setSmLoading(true)
+    setSmLoading(true);
     const docRef = doc(db, "users-progress", user.uid);
-    const solved_problems = {...solved}
-    solved_problems[key] = false
+    const solved_problems = { ...solved };
+    solved_problems[key] = false;
     try {
       await updateDoc(docRef, {
-        solved_problems
+        solved_problems,
       });
       onDataChange(key, false);
     } catch (error) {
       console.log(error);
     }
-    setSmLoading(false)
+    setSmLoading(false);
   };
   const make_true = async (key) => {
-    setSmLoading(true)
+    setSmLoading(true);
     const docRef = doc(db, "users-progress", user.uid);
-    const solved_problems = {...solved}
-    solved_problems[key] = true
+    const solved_problems = { ...solved };
+    solved_problems[key] = true;
     try {
       await updateDoc(docRef, {
-        solved_problems
+        solved_problems,
       });
       onDataChange(key, true);
     } catch (error) {
       console.log(error);
     }
-    setSmLoading(false)
+    setSmLoading(false);
   };
 
   const handleTagsClick = () => {
@@ -237,7 +246,14 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
                       {user && (
                         <td className="px-2 sm:px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center justify-start">
-                            {smloading ? (<ReactLoading type="cylon" color="#303F9F" height={'75%'} width={'75%'}/>) : isChecked(problem.key) ? (
+                            {smloading ? (
+                              <ReactLoading
+                                type="cylon"
+                                color="#303F9F"
+                                height={"75%"}
+                                width={"75%"}
+                              />
+                            ) : isChecked(problem.key) ? (
                               <input
                                 onClick={() => make_false(problem.key)}
                                 id="checkbox-1"
