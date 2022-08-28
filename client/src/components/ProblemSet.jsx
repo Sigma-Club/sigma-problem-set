@@ -229,7 +229,7 @@ const ProblemSet = ({ solved, onDataChange, setsolved }) => {
                           </a>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap  badge_container hidden md:flex">
+                      <td className="px-6 py-4 whitespace-nowrap  badge_container hidden sm:flex">
                         {problem.tags.map((e, index) => {
                           return <Badge tag={e} key={index} />;
                         })}
