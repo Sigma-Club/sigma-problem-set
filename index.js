@@ -3,12 +3,16 @@ import dotenv from 'dotenv'
 import initDB from './db/initDB.js'
 import problem from './db/problemSchema.js'
 import cors from 'cors'
+import generateToken from './generateToken.js'
+import protect from "./middleware.js";
 dotenv.config()
 
 const app = express();
 app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 app.use(cors())
+
+const token = generateToken(process.env.ADMIN_ID)
 
 app.get('/', (req, res) => {
 
@@ -23,7 +27,7 @@ app.get('/', (req, res) => {
         })
 })
 
-app.post('/', (req, res) => {
+app.post('/', protect, (req, res) => {
     const { problemName, tagsList, problemLink } = req.body;
     const new_problem = new problem({
         problem_name: problemName,

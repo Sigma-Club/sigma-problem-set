@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProfileCard from "../components/ProfileCard";
 import { UserAuth } from "../context/AuthContext";
-import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
+import {  doc, getDoc} from "firebase/firestore";
 import { db } from "../firebase";
 import Header from "../components/Header";
 
@@ -13,7 +13,7 @@ const Profile = () => {
     setSmLoading(true);
     const docRef = doc(db, "users-progress", user.uid);
     getDoc(docRef).then((doc) => {
-      console.log(doc.data());
+      //console.log(doc.data());
       if (doc.data() == undefined || doc.data == null) {
         setNumberOfProblems(0);
       } else {
