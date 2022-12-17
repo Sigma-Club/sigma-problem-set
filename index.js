@@ -10,7 +10,9 @@ dotenv.config()
 const app = express();
 app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ extended: true, limit: "100mb" }));
-app.use(cors())
+app.use(cors({
+    origin: ["https://sigmaproblemset.netlify.app/", "http://localhost:3000"],
+}))
 
 const token = generateToken(process.env.ADMIN_ID)
 
