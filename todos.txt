@@ -1,3 +1,1 @@
-1) Profile Section
-2) middleware or firebase problems maybe
-3) enabling local storage and building syncing feature
+1) enabling local storage and building syncing feature
